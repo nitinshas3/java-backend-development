@@ -76,3 +76,70 @@ Follow-up methods:
 If true: call stmt.getResultSet() to fetch rows.
 
 If false: call stmt.getUpdateCount() to get affected row count.
+
+-------------------------------
+
+🔎 What PreparedStatement Does
+Precompiled SQL: The SQL query is compiled once by the database and reused, which is faster for repeated executions.
+
+Placeholders (?): Instead of concatenating strings, you use ? as a placeholder for values.
+
+Safe Binding: You set values using methods like setInt(), setString(), etc. This prevents SQL injection.
+
+Cleaner Code: No messy string concatenation for queries.
+
+✅ Example Usage
+java
+// 1. Create connection
+Connection conn = DriverManager.getConnection(
+    "jdbc:postgresql://localhost:5432/jdbclearning", "postgres", "mandeshpostgresql");
+
+// 2. Prepare SQL with placeholders
+String sql = "INSERT INTO studentinfo(id, sname, sage, scity) VALUES (?, ?, ?, ?)";
+PreparedStatement pstmt = conn.prepareStatement(sql);
+
+// 3. Bind values
+pstmt.setInt(1, 1);
+pstmt.setString(2, "Nitin");
+pstmt.setInt(3, 20);
+pstmt.setString(4, "Mysore");
+
+// 4. Execute
+int rows = pstmt.executeUpdate();
+System.out.println(rows + " row(s) inserted");
+
+// 5. Close
+pstmt.close();
+conn.close();
+⚡ Key Benefits
+Performance: Query compiled once, reused many times.
+
+Security: Prevents SQL injection by binding values safely. -------------- can inject values at runtime -----------
+
+Flexibility: Same query can run with different parameters.
+
+Convenience: Methods like setInt(), setString(), setDouble() make binding easy.
+
+🔧 Common Methods
+setInt(int index, int value) → bind integer
+
+setString(int index, String value) → bind string
+
+executeQuery() → run SELECT queries, returns ResultSet
+
+executeUpdate() → run INSERT, UPDATE, DELETE, returns affected row count
+
+clearParameters() → reset bound values
+
+⚠️ Risks if You Don’t Use It
+Using plain Statement with string concatenation can lead to:
+
+SQL injection attacks (e.g., malicious input altering queries).
+
+Performance issues (query compiled every time).
+
+Messy code with lots of string concatenation.  
+
+------------------------
+
+for preparestatment for each new query like update delete we need to create new object unlike create statement , coz the query is passed while creating the object for prepare statement 

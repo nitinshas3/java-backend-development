@@ -8,19 +8,29 @@ import java.sql.Statement;
 
 public class Firstjdbc {
     public static void main(String[] args) throws ClassNotFoundException ,SQLException{
+
+        Statement statement = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
         //1) first step to download jar files of drivers and install dependencies 
         //2)load and register the driver 
-        Class.forName("org.postgresql.Driver");
-        //for static blocks in class , if it has to be executed the class has to be loaded , for other blocks an object has to be created for that block to run unlike static block , so class.forname is used to load static block and the calssname here is in the parameters , it is Driver , and that static block contains drivermanager.registerdriver method 
+
+
+        try {
+          Class.forName("org.postgresql.Driver");
+          
+         
+          //for static blocks in class , if it has to be executed the class has to be loaded , for other blocks an object has to be created for that block to run unlike static block , so class.forname is used to load static block and the calssname here is in the parameters , it is Driver , and that static block contains drivermanager.registerdriver method 
 
         //3)establish the connection 
        String url = "jdbc:postgresql://localhost:5432/jdbclearning";
         String user = "postgres";
         String password = "mandeshpostgresql";
-        Connection conn =   DriverManager.getConnection(url,user,password);
+         conn =   DriverManager.getConnection(url,user,password);
 
         //4)creating the statement
-        Statement statement = conn.createStatement();
+         statement = conn.createStatement();
 
         //5)execute query
         //here the sql queries have to be writte manually 
@@ -33,7 +43,7 @@ public class Firstjdbc {
         else System.out.println("data inserted ");*/
 
         String sql = "select * from studentinfo";
-        ResultSet rs = statement.executeQuery( sql);
+         rs = statement.executeQuery( sql);
 
         //6)process the result 
 
@@ -42,9 +52,25 @@ public class Firstjdbc {
         }
 
         //7)close the resources 
-        rs.close();
-        statement.close();
-        conn.close();
+       
+    }
+
+
+        catch (SQLException e) {
+         e.printStackTrace();
+           }  
+        catch(Exception e){
+            e.printStackTrace();;
+        }   
+
+        finally{
+             rs.close();
+             statement.close();
+             conn.close();
+    
+        }//finally blocks executes even though execption handled or not , or ocucred or not so keep closing things here 
+
+
     }
 }
 // only queries change based on the action we want , rest all remains the same like loading driver and all so it should be in boiler plate code , thats where frameworks come into place , but before that we need to learn core jdbc to know how things work 
