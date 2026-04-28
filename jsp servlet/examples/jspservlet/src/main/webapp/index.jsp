@@ -47,7 +47,7 @@
 <body>
     <div class="login-box">
         <h2>Login</h2>
-        <form action="login.jsp" method="post">
+        <form action="firstservlet" method="post">
             <input type="text" name="username" placeholder="Enter Username" required>
             <input type="password" name="password" placeholder="Enter Password" required>
             <button type="submit">Login</button>
