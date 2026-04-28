@@ -320,4 +320,4 @@ MISTAKES , WHY THE SERVER WAS NOT RESPONDING TO POST REQUEST , MVN CLEAN COMIPLE
 # 📝 Servlet Project Deployment Workflow
 
 When you create a new servlet project, always build it first using `mvn clean package` so that the proper deployable folder is generated inside `target` (like `target/yourProjectName`). Then go to Run → Edit Configurations in IntelliJ and open your SmartTomcat configuration. The key thing is to set the Webapp Directory to the built folder inside `target` (for example, `target/jspservlet`) instead of `src/main/webapp`, because only the target folder contains both JSP files and compiled servlet classes (`WEB-INF/classes`). After setting this, always restart the Tomcat server whenever you make changes. For every new project, follow the same pattern: build the project, verify that the `target/<project>` folder exists with `WEB-INF/classes`, point your Tomcat configuration to that folder, and then run the server.
-edit configurations point the deployment directory to project folder in target file not src or anything
+edit configurations point the deployment directory to project folder in target file not src or anything.
