@@ -136,7 +136,7 @@ src/main/java/
 
 Example:
 
-```java
+/*java
 @WebServlet("/hello")
 public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -144,7 +144,7 @@ public class HelloServlet extends HttpServlet {
         res.getWriter().println("Hello World");
     }
 }
-```
+*/
 
 ---
 
@@ -321,3 +321,33 @@ MISTAKES , WHY THE SERVER WAS NOT RESPONDING TO POST REQUEST , MVN CLEAN COMIPLE
 
 When you create a new servlet project, always build it first using `mvn clean package` so that the proper deployable folder is generated inside `target` (like `target/yourProjectName`). Then go to Run → Edit Configurations in IntelliJ and open your SmartTomcat configuration. The key thing is to set the Webapp Directory to the built folder inside `target` (for example, `target/jspservlet`) instead of `src/main/webapp`, because only the target folder contains both JSP files and compiled servlet classes (`WEB-INF/classes`). After setting this, always restart the Tomcat server whenever you make changes. For every new project, follow the same pattern: build the project, verify that the `target/<project>` folder exists with `WEB-INF/classes`, point your Tomcat configuration to that folder, and then run the server.
 edit configurations point the deployment directory to project folder in target file not src or anything.
+
+---------------------------------------------------------------------
+# Servlet Lifecycle Workflow
+
+A servlet goes through a defined lifecycle managed by the servlet container (like Tomcat):
+
+---
+
+## 1. Loading & Instantiation
+- The servlet class is loaded into memory by the container.
+- An object of the servlet is created.
+
+---
+
+## 2. Initialization (`init()` method)
+- Called **once** when the servlet is first created.
+- Used to initialize resources (e.g., DB connections, config parameters).
+
+---
+
+## 3. Request Handling (`service()` method)
+- Called **every time** an HTTP request is received.
+- Dispatches to `doGet()`, `doPost()`, etc., depending on the request type.
+- Core logic of request/response happens here.
+
+---
+
+## 4. Destruction (`destroy()` method)
+- Called **once** when the servlet is being taken out of service.
+- Used to release resources (close DB connections, cleanup tasks).
