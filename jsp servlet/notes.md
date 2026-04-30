@@ -351,3 +351,6 @@ A servlet goes through a defined lifecycle managed by the servlet container (lik
 ## 4. Destruction (`destroy()` method)
 - Called **once** when the servlet is being taken out of service.
 - Used to release resources (close DB connections, cleanup tasks).
+
+--------------------------------------------------------
+ALWAYS CHECK IF THE APPLICATION IS ADDED AS MAVEN PROJECT OR NOT IN BETWEEN , IF NOT GO TO POM FILE RIGHT CLICK AND BOTTO IT WILL BE THERE 
